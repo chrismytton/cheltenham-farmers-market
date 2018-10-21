@@ -11,6 +11,7 @@ html = Nokogiri(open('https://www.cheltenham.gov.uk/info/24/markets/491/cheltenh
 # Pull out the dates and parse them
 dates = html.search('#content ul').first.search('li').map(&:text)
 dates_parsed = dates.flat_map { |d| month = d.split(' ').last; d.scan(/\d+/).map { |n| "#{n} #{month} 2018" } }.map { |d| Date.parse(d) }
+File.write('public/dates.csv', dates_parsed.map(&:to_s).join("\n"))
 
 # Create an ical representation of the dates
 cal = Icalendar::Calendar.new
