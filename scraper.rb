@@ -5,14 +5,15 @@ require 'pry'
 require 'icalendar'
 require 'date'
 
+# Get the HTML of the farmers market webpage
 html = Nokogiri(open('https://www.cheltenham.gov.uk/info/24/markets/491/cheltenham_farmers_market').read)
 
+# Pull out the dates and parse them
 dates = html.search('#content ul').first.search('li').map(&:text)
 dates_parsed = dates.flat_map { |d| month = d.split(' ').last; d.scan(/\d+/).map { |n| "#{n} #{month} 2018" } }.map { |d| Date.parse(d) }
 
-
+# Create an ical representation of the dates
 cal = Icalendar::Calendar.new
-
 dates_parsed.each do |date|
   start_time = DateTime.parse("#{date} 09:00")
   end_time = DateTime.parse("#{date} 14:00")
@@ -24,5 +25,6 @@ dates_parsed.each do |date|
   end
 end
 
-File.write('public/index.html', '<a href="farmers-markets.ics">Download farmers-markets.ics</a>')
+# Write the ical files and a simple index.html to the public/ directory
 File.write('public/farmers-markets.ics', cal.to_ical)
+File.write('public/index.html', '<a href="farmers-markets.ics">Download farmers-markets.ics</a>')
