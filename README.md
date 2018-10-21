@@ -12,6 +12,6 @@ This is a Ruby scraper, so you will need to have a recent version of Ruby instal
 
 ## Usage
 
-Running the scraper will create a `.ics` file at `public/farmers-markets.ics` suitable for adding to most calendar applications. Run the scraper like so:
+Running the scraper will regenerate the files in the `docs/` directory. Run the scraper like so:
 
     ruby scraper.rb
