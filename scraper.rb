@@ -27,4 +27,3 @@ end
 
 # Write the ical files and a simple index.html to the public/ directory
 File.write('public/farmers-markets.ics', cal.to_ical)
-File.write('public/index.html', '<a href="farmers-markets.ics">Download farmers-markets.ics</a>')
