@@ -24,4 +24,5 @@ dates_parsed.each do |date|
   end
 end
 
+File.write('public/index.html', '<a href="farmers-markets.ics">Download farmers-markets.ics</a>')
 File.write('public/farmers-markets.ics', cal.to_ical)
