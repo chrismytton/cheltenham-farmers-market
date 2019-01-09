@@ -8,9 +8,11 @@ require 'date'
 # Get the HTML of the farmers market webpage
 html = Nokogiri(open('https://www.cheltenham.gov.uk/info/24/markets/491/cheltenham_farmers_market').read)
 
+year = html.title.match(/December (\d{4})/)[1]
+
 # Pull out the dates and parse them
 dates = html.search('#content ul').first.search('li').map(&:text)
-dates_parsed = dates.flat_map { |d| month = d.split(' ').last; d.scan(/\d+/).map { |n| "#{n} #{month} 2018" } }.map { |d| Date.parse(d) }
+dates_parsed = dates.flat_map { |d| month = d.split(' ').last; d.scan(/\d+/).map { |n| "#{n} #{month} #{year}" } }.map { |d| Date.parse(d) }
 File.write('docs/dates.csv', dates_parsed.map(&:to_s).join("\n"))
 
 # Create an ical representation of the dates
