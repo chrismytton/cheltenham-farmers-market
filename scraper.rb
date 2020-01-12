@@ -29,4 +29,4 @@ dates_parsed.each do |date|
 end
 
 # Write the ical files and a simple index.html to the docs/ directory
-File.write('docs/farmers-markets.ics', cal.to_ical)
+File.write("docs/farmers-markets-#{Time.now.year}.ics", cal.to_ical)
