@@ -1,10 +1,12 @@
 require 'date'
 
-# The market will run on the 2nd and last Friday of every month, from
+year = ARGV[0] || Date.today.year
+
+# The market runs on the 2nd and last Friday of every month from
 # January to November and then on the 2nd and 3rd Friday in December.
 
 markets_dates = 1.upto(12).flat_map do |month|
-  start_of_month = Date.new(2020, month)
+  start_of_month = Date.new(year, month)
   end_of_month = start_of_month.next_month.prev_day
   fridays = start_of_month.upto(end_of_month).select(&:friday?)
   if month != 12
